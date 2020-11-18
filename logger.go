@@ -5,6 +5,8 @@ import (
 	"os"
 	"sync"
 	"sync/atomic"
+
+	"github.com/kr/pretty"
 )
 
 type Logger struct {
@@ -67,9 +69,20 @@ func (mw *MutexWrap) Disable() {
 //
 // It's recommended to make this a global instance called `log`.
 func New() *Logger {
+	var defaultFormatter Formatter
+	ldf := os.Getenv("LOGRUS_DEFAULT_FORMATTER")
+	switch ldf {
+	case "json":
+		pretty.Println("Using json formatter")
+		defaultFormatter = new(JSONFormatter)
+	default:
+		pretty.Println("Using text formatter")
+		defaultFormatter = new(TextFormatter)
+	}
+
 	return &Logger{
 		Out:       os.Stderr,
-		Formatter: new(TextFormatter),
+		Formatter: defaultFormatter,
 		Hooks:     make(LevelHooks),
 		Level:     InfoLevel,
 	}
