@@ -3,6 +3,7 @@ package logrus
 import (
 	"io"
 	"os"
+	"strings"
 	"sync"
 	"sync/atomic"
 )
@@ -90,11 +91,29 @@ func New() *Logger {
 		}
 	}
 
+	lll := os.Getenv("LOGRUS_LOG_LEVEL")
+	if lll == "" {
+		lll = os.Getenv("PORTAL_LOG_LEVEL")
+	}
+
+	logLevel := InfoLevel
+
+	switch strings.ToLower(lll) {
+	case "error":
+		logLevel = ErrorLevel
+	case "warn":
+		logLevel = WarnLevel
+	case "debug":
+		logLevel = DebugLevel
+	default:
+		logLevel = InfoLevel
+	}
+
 	return &Logger{
 		Out:       os.Stderr,
 		Formatter: defaultFormatter,
 		Hooks:     make(LevelHooks),
-		Level:     InfoLevel,
+		Level:     logLevel,
 	}
 }
 
