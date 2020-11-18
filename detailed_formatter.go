@@ -33,6 +33,8 @@ type DetailedFormatter struct {
 	Package bool
 	// When true, file name will be tagged to fields as well
 	File bool
+	// When true, function name will be tagged to fields as well
+	Function bool
 	// When true, only base name of the file will be tagged to fields
 	BaseNameOnly bool
 }
@@ -44,7 +46,10 @@ func (f *DetailedFormatter) Format(entry *Entry) ([]byte, error) {
 	packageEnd := strings.LastIndex(function, ".")
 	functionName := function[packageEnd+1:]
 
-	data := Fields{FunctionKey: functionName}
+	data := Fields{}
+	if f.Function {
+		data[FunctionKey] = functionName
+	}
 	if f.Line {
 		data[LineKey] = line
 	}

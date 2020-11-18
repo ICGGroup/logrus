@@ -5,8 +5,6 @@ import (
 	"os"
 	"sync"
 	"sync/atomic"
-
-	"github.com/kr/pretty"
 )
 
 type Logger struct {
@@ -69,15 +67,27 @@ func (mw *MutexWrap) Disable() {
 //
 // It's recommended to make this a global instance called `log`.
 func New() *Logger {
-	var defaultFormatter Formatter
+	var defaultFormatter *DetailedFormatter
 	ldf := os.Getenv("LOGRUS_DEFAULT_FORMATTER")
 	switch ldf {
 	case "json":
-		pretty.Println("Using json formatter")
-		defaultFormatter = new(JSONFormatter)
+		defaultFormatter = &DetailedFormatter{
+			ChildFormatter: &JSONFormatter{},
+			Package:        (os.Getenv("LOGRUS_DETAILS_INCLUDE_PACKAGE") == "true"),
+			File:           (os.Getenv("LOGRUS_DETAILS_INCLUDE_FILE") == "true"),
+			Function:       (os.Getenv("LOGRUS_DETAILS_INCLUDE_FUNCTION") == "true"),
+			Line:           (os.Getenv("LOGRUS_DETAILS_INCLUDE_LINE") == "true"),
+			BaseNameOnly:   !(os.Getenv("LOGRUS_DETAILS_INCLUDE_BASE_NAME_ONLY") == "false"),
+		}
 	default:
-		pretty.Println("Using text formatter")
-		defaultFormatter = new(TextFormatter)
+		defaultFormatter = &DetailedFormatter{
+			ChildFormatter: &TextFormatter{},
+			Package:        (os.Getenv("LOGRUS_DETAILS_INCLUDE_PACKAGE") == "true"),
+			File:           (os.Getenv("LOGRUS_DETAILS_INCLUDE_FILE") == "true"),
+			Function:       (os.Getenv("LOGRUS_DETAILS_INCLUDE_FUNCTION") == "true"),
+			Line:           (os.Getenv("LOGRUS_DETAILS_INCLUDE_LINE") == "true"),
+			BaseNameOnly:   !(os.Getenv("LOGRUS_DETAILS_INCLUDE_BASE_NAME_ONLY") == "false"),
+		}
 	}
 
 	return &Logger{
