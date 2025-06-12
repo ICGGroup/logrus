@@ -21,7 +21,7 @@ spec:
       nodeSelector:
         role: icgworker
       containers:
-        - image: 872855011810.dkr.ecr.us-west-2.amazonaws.com/logevent@sha256:c621fc69754403ae6b6dd8ded105ad89c38c035bcf41796ebf2f924831d1cb26 # <-- IMPORTANT: Replace with your image
+        - image: 872855011810.dkr.ecr.us-west-2.amazonaws.com/logevent@sha256:62d18aff094d333b42da1156b83c5fb2f6cbcc0508db9d01d1efcef78f97e076 # <-- IMPORTANT: Replace with your image
           ports:
             - containerPort: 8080
           env:

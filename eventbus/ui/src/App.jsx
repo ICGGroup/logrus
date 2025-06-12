@@ -24,11 +24,13 @@ function App() {
     if (!query) return true;
 
     const evalExpr = (obj, expr) => {
+      console.log('Evaluating expression:', expr, 'on data:', obj);
       const parts = expr.split(/\s+(and|or)\s+/);
       let result = null;
 
       for (let i = 0; i < parts.length; i += 2) {
         const condition = parts[i];
+
         const match = condition.trim().match(/^(!)?(.+?)(=|!=|:|!:)"(.*?)"$/);
         if (!match) continue;
 
@@ -65,7 +67,7 @@ function App() {
   };
 
   const applyFilter = (event) => {
-    return matchFilter(event, filter);
+    return matchFilter(event.data, filter);
   };
 
   function handleEvent(evt, type) {
