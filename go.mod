@@ -18,6 +18,9 @@ require (
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/otel/metric v1.36.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+
+
+	golang.org/x/crypto v0.0.0-20230724160611-2b1c3d8f4a6e // indirect	
 )
 
 go 1.22
