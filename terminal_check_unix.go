@@ -7,9 +7,9 @@ package logrus
 
 import "golang.org/x/sys/unix"
 
-const ioctlReadTermios = unix.TCGETS
+const ioctlReadTermios3 = unix.TCGETS
 
 func isTerminal(fd int) bool {
-	_, err := unix.IoctlGetTermios(fd, ioctlReadTermios)
+	_, err := unix.IoctlGetTermios(fd, ioctlReadTermios3)
 	return err == nil
 }
