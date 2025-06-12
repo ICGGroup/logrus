@@ -1,4 +1,4 @@
-module github.com/icggroup/logrus/v2
+module github.com/icggroup/logrus
 
 require (
 	github.com/cenkalti/backoff/v4 v4.3.0
