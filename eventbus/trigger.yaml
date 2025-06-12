@@ -1,0 +1,16 @@
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  # Give your trigger a name
+  name: event-router-broadcast-all-trigger
+  # IMPORTANT: Use the same namespace as your Broker and Service
+  namespace: logevent
+spec:
+  # The Broker this trigger listens to
+  broker: logevent-broker
+  # The destination for the events
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: event-router

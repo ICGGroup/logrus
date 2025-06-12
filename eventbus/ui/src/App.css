@@ -1,0 +1,136 @@
+
+.app-container {
+  padding: 20px;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+  max-width: 1200px;
+  margin: auto;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.toolbar input[type="text"],
+.toolbar input[type="number"] {
+  padding: 4px 8px;
+  font-size: 14px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.toolbar button {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.toolbar button:disabled {
+  background-color: #ccc;
+  cursor: default;
+}
+
+.examples {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.examples code {
+  display: inline-block;
+  background: #eee;
+  border-radius: 4px;
+  padding: 2px 6px;
+  margin-right: 5px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.log-container {
+  background: white;
+  border: 1px solid #ddd;
+  max-height: 70vh;
+  overflow-y: auto;
+  border-radius: 4px;
+}
+
+.log-row {
+  padding: 8px 10px;
+  border-bottom: 1px solid #f0f0f0;
+  cursor: pointer;
+}
+
+.log-row:hover {
+  background: #f5f5f5;
+}
+
+.log-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.log-header .time {
+  color: #999;
+  font-family: monospace;
+  min-width: 90px;
+}
+
+.log-header .level {
+  font-weight: bold;
+  min-width: 75px;
+}
+
+.log-header .message {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.log-header .module {
+  color: #888;
+  font-size: 12px;
+}
+
+.log-details {
+  background: #fcfcfc;
+  padding: 10px;
+  font-size: 13px;
+  font-family: monospace;
+  white-space: pre-wrap;
+  color: #444;
+  border-top: 1px solid #eee;
+  margin-top: 4px;
+}
+
+body.dark-mode {
+  background: #121212;
+  color: #f5f5f5;
+}
+body.dark-mode .log-container {
+  background: #1e1e1e;
+}
+body.dark-mode .log-row:hover {
+  background: #2a2a2a;
+}
+body.dark-mode .log-details {
+  background: #2b2b2b;
+  color: #ddd;
+}

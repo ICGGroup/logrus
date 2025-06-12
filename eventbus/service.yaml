@@ -1,0 +1,41 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: event-router
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/class: kpa.autoscaling.knative.dev
+        autoscaling.knative.dev/maxScale: "2"
+        autoscaling.knative.dev/metric: concurrency
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/scale-to-zero-pod-retention-period: 300s
+        autoscaling.knative.dev/target: "100"
+        autoscaling.knative.dev/window: 30s  
+    spec:
+      tolerations:
+        - key: "icgworkernode"
+          operator: "Exists"
+          effect: "NoSchedule"  
+      nodeSelector:
+        role: icgworker
+      containers:
+        - image: 872855011810.dkr.ecr.us-west-2.amazonaws.com/logevent@sha256:c621fc69754403ae6b6dd8ded105ad89c38c035bcf41796ebf2f924831d1cb26 # <-- IMPORTANT: Replace with your image
+          ports:
+            - containerPort: 8080
+          env:
+            - name: HTTP_PORT
+              value: "8080"
+            - name: K_SINK
+              # This sends events originating from this service (e.g., from a WebSocket client)
+              # to the default broker in the current namespace.
+              value: "http://broker-ingress.knative-eventing.svc.cluster.local/logevent/logevent-broker"
+            - name: DEFAULT_EVENT_SOURCE
+              value: "urn:k8s:knative-logevent-router"
+          livenessProbe:
+            httpGet:
+              path: /healthz
+          readinessProbe:
+            httpGet:
+              path: /readyz

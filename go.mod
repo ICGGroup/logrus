@@ -1,8 +1,9 @@
 module github.com/icggroup/logrus
 
-go 1.13
-
 require (
-	golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9
-	golang.org/x/sys v0.0.0-20201118182958-a01c418693c7
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/stretchr/testify v1.7.0
+	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8
 )
+
+go 1.21

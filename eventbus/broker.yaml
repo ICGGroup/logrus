@@ -1,0 +1,7 @@
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  # The name for your new Broker
+  name: logevent-broker
+  # The namespace where you want to create it
+  namespace: logevent
